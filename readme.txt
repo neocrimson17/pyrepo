@@ -13,7 +13,7 @@ open python in command prompt and install the following:
 Note: ignore the above comments if you've already installed Beautiful soup and requests in python.
 The above use newegg.com as a demo but you can use a different website if you wish.  Although you will 
 need to modify the codes accordingly since the elements in HTML are different for each website.
-There's a probably a way to dynamically set it up so that it can traverse each website dynamically
+There's probably a way to dynamically set it up so that it can traverse each website dynamically
 without us having to change the codes, but this is just a demo.
 
          
