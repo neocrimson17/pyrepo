@@ -64,26 +64,38 @@ class Window(QtWidgets.QMainWindow):
 
 
     def file_save(self):
-        name = QtWidgets.QFileDialog.getSaveFileName(self,'Save File')
-        file = open(name[0],'w')
+        filename = QtWidgets.QFileDialog.getSaveFileName(self,'Save File')
 
-        #convert to plain text
-        text = self.textEdit.toPlainText()
+        #check if file exists
+        if filename[0]:
+            file = open(filename[0],'w')
 
-        file.write(text)
-        file.close()
+            #convert to plain text
+            text = self.textEdit.toPlainText()
+
+            file.write(text)
+            file.close()
         
     def file_open(self):
-        name = QtWidgets.QFileDialog.getOpenFileName(self,'Open File')
+        filename = QtWidgets.QFileDialog.getOpenFileName(self,'Open File')
+
+        #specify home directory /C or /User  /directory and etc.
+        #filename = QtWidgets.QFileDialog.getOpenFileName(self,'Open File','/Users')
         #print(type(name))
-        file = open(name[0],'r')
 
-        #call editor to load the file into
-        self.editor()
+        #check if file exists
+        if filename[0]:
+            
+            file = open(filename[0],'r')
 
-        with file:
-            text = file.read()
-            self.textEdit.setText(text)
+            #call editor to load the file into
+            if file:
+               self.editor()
+
+            with file:
+                text = file.read()
+                self.textEdit.setText(text)
+                
     def editor(self):
         self.textEdit = QtWidgets.QTextEdit()
         self.setCentralWidget(self.textEdit)
@@ -148,6 +160,9 @@ class Window(QtWidgets.QMainWindow):
 def run():
     app = QtWidgets.QApplication(sys.argv)
     GUI = Window()
+    #app.exec_() <--Qt5 and up
     sys.exit(app.exec_())
-    
+
 run()
+    
+    
