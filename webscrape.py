@@ -72,7 +72,7 @@ class Window(QtWidgets.QMainWindow):
 
             #convert to plain text
             text = self.textEdit.toPlainText()
-
+            
             file.write(text)
             file.close()
         
@@ -140,21 +140,24 @@ class Window(QtWidgets.QMainWindow):
 
         #write a cvs file to the pytest directory
         name = QtWidgets.QFileDialog.getSaveFileName(self,'Save File')
-        f = open(name[0], "w")
-        headers = "brand, product_name, shipping_cost\n"
-        f.write(headers)
 
-        for container in the_containers:
-            spec_brand = container.find("div", "item-branding").a.img["title"]
-            spec_title = container.a.img["title"]
-            shipping_cost = container.find("li","price-ship").text.strip()
+        if name[0]:
+            
+            f = open(name[0], "w")
+            headers = "brand, product_name, shipping_cost\n"
+            f.write(headers)
 
-            print("brand: " + spec_brand)
-            print("product_name: " + spec_title)
-            print("shipping_cost: " + shipping_cost)
-            f.write(spec_brand + "," + spec_title.replace(",","|") + ","+ shipping_cost+"\n")
+            for container in the_containers:
+                spec_brand = container.find("div", "item-branding").a.img["title"]
+                spec_title = container.a.img["title"]
+                shipping_cost = container.find("li","price-ship").text.strip()
 
-        f.close()
+                #print("brand: " + spec_brand)
+                #print("product_name: " + spec_title)
+                #print("shipping_cost: " + shipping_cost)
+                f.write(spec_brand + "," + spec_title.replace(",","|") + ","+ shipping_cost+"\n")
+
+            f.close()
         
 
 def run():
